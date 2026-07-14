@@ -904,5 +904,17 @@
   "aiChatFontSize": "Font Size",
   "aiModelSwitchTitle": "Switch Model",
   "aiModelEnterManually": "Enter model name",
-  "aiModelOrSelectBelow": "Or select from list:"
+  "aiModelOrSelectBelow": "Or select from list:",
+  "authLoginTitle": "Sign in",
+  "authLoginSubtitle": "Sign in to continue to Anx Reader",
+  "authEmail": "Email",
+  "authPassword": "Password",
+  "authLoginButton": "Sign in",
+  "authInvalidEmail": "Please enter a valid email",
+  "authLoginSuccess": "Signed in successfully",
+  "authLoginFailed": "Sign in failed",
+  "authLogout": "Sign out",
+  "authLogoutConfirmTitle": "Sign out?",
+  "authLogoutConfirmBody": "You will need to sign in again to use the app.",
+  "authLogoutSuccess": "Signed out successfully"
 }

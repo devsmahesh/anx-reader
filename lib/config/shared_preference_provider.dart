@@ -50,6 +50,9 @@ const String _prefsBackupEntryValueKey = 'value';
 const Set<String> _prefsImportSkipKeys = {
   'iapPurchaseStatus',
   'iapLastCheckTime',
+  'accessToken',
+  'refreshToken',
+  'authEmail',
 };
 
 class Prefs extends ChangeNotifier {
@@ -304,6 +307,37 @@ class Prefs extends ChangeNotifier {
 
   bool get webdavStatus {
     return prefs.getBool('webdavStatus') ?? false;
+  }
+
+  bool get isLoggedIn {
+    final token = accessToken;
+    return token != null && token.isNotEmpty;
+  }
+
+  String? get accessToken => prefs.getString('accessToken');
+
+  String? get refreshToken => prefs.getString('refreshToken');
+
+  String? get authEmail => prefs.getString('authEmail');
+
+  void saveAuthTokens({
+    required String accessToken,
+    required String refreshToken,
+    String? email,
+  }) {
+    prefs.setString('accessToken', accessToken);
+    prefs.setString('refreshToken', refreshToken);
+    if (email != null) {
+      prefs.setString('authEmail', email);
+    }
+    notifyListeners();
+  }
+
+  void clearAuth() {
+    prefs.remove('accessToken');
+    prefs.remove('refreshToken');
+    prefs.remove('authEmail');
+    notifyListeners();
   }
 
   void saveClearLogWhenStart(bool status) {

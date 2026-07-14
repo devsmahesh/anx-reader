@@ -19,7 +19,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "de": [
@@ -42,7 +54,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "es": [
@@ -65,7 +89,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "fr": [
@@ -88,7 +124,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "it": [
@@ -111,7 +159,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "ja": [
@@ -134,7 +194,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "ko": [
@@ -157,7 +229,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "pt": [
@@ -180,7 +264,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "ro": [
@@ -203,7 +299,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "ru": [
@@ -226,7 +334,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "tr": [
@@ -249,7 +369,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "zh": [
@@ -258,7 +390,34 @@
     "settingsAiProviderReasoningEffortAuto",
     "settingsAiProviderReasoningEffortLow",
     "settingsAiProviderReasoningEffortMedium",
-    "settingsAiProviderReasoningEffortHigh"
+    "settingsAiProviderReasoningEffortHigh",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
+  ],
+
+  "zh_CN": [
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "zh_LZH": [
@@ -281,7 +440,19 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ],
 
   "zh_TW": [
@@ -304,6 +475,18 @@
     "settingsAdvancedHttpProxyTest",
     "settingsAdvancedHttpProxyTesting",
     "settingsAdvancedHttpProxyTestSuccess",
-    "settingsAdvancedHttpProxyTestFailed"
+    "settingsAdvancedHttpProxyTestFailed",
+    "authLoginTitle",
+    "authLoginSubtitle",
+    "authEmail",
+    "authPassword",
+    "authLoginButton",
+    "authInvalidEmail",
+    "authLoginSuccess",
+    "authLoginFailed",
+    "authLogout",
+    "authLogoutConfirmTitle",
+    "authLogoutConfirmBody",
+    "authLogoutSuccess"
   ]
 }
