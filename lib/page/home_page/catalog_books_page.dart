@@ -4,6 +4,7 @@ import 'package:anx_reader/models/catalog_book.dart';
 import 'package:anx_reader/providers/catalog_books.dart';
 import 'package:anx_reader/service/books/catalog_book_opener.dart';
 import 'package:anx_reader/utils/toast/common.dart';
+import 'package:anx_reader/widgets/bookshelf/physical_book_cover.dart';
 import 'package:anx_reader/widgets/common/container/filled_container.dart';
 import 'package:anx_reader/widgets/show_loading.dart';
 import 'package:anx_reader/widgets/tips/bookshelf_tips.dart';
@@ -251,25 +252,18 @@ class _CatalogBookTile extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: ColoredBox(
-                color: colorScheme.surfaceContainerHighest,
-                child: book.coverImageUrl != null &&
-                        book.coverImageUrl!.isNotEmpty
-                    ? Image.network(
-                        book.coverImageUrl!,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        errorBuilder: (_, __, ___) =>
-                            _PlaceholderCover(title: book.title),
-                      )
-                    : _PlaceholderCover(title: book.title),
+            child: Padding(
+              // Room for the physical-book drop shadow
+              padding: const EdgeInsets.only(right: 4, bottom: 6),
+              child: CatalogBookCoverArt(
+                title: book.title,
+                author: book.authorLabel,
+                coverImageUrl: book.coverImageUrl,
               ),
             ),
           ),
@@ -292,33 +286,6 @@ class _CatalogBookTile extends StatelessWidget {
                 ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PlaceholderCover extends StatelessWidget {
-  const _PlaceholderCover({required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final background = Colors
-        .primaries[title.hashCode.abs() % Colors.primaries.length]
-        .shade200;
-
-    return Container(
-      width: double.infinity,
-      color: background,
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(12),
-      child: Text(
-        title,
-        maxLines: 4,
-        overflow: TextOverflow.ellipsis,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.titleSmall,
       ),
     );
   }

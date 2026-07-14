@@ -107,10 +107,13 @@ class CatalogBookOpener {
       // Remove any previously cached bookshelf copy from earlier versions.
       await _removeLegacyCache(catalogBook.id);
 
+      final coverRelativePath =
+          await _cacheRemoteCover(catalogBook);
+
       final book = Book(
         id: -1,
         title: catalogBook.title,
-        coverPath: '',
+        coverPath: coverRelativePath ?? '',
         filePath: tempRelativePath,
         lastReadPosition: '',
         readingPercentage: 0,
@@ -143,6 +146,49 @@ class CatalogBookOpener {
     } catch (e) {
       AnxLog.warning('CatalogOpen: legacy cache cleanup failed: $e');
     }
+  }
+
+  /// Downloads a remote cover into the local cover cache when available.
+  /// Returns a relative path like `cover/catalog-{id}.jpg`, or null.
+  Future<String?> _cacheRemoteCover(CatalogBook catalogBook) async {
+    final url = catalogBook.coverImageUrl;
+    if (url == null || url.isEmpty) return null;
+
+    try {
+      final ext = _coverExtensionFromUrl(url);
+      final relativePath = 'cover/catalog-${catalogBook.id}.$ext';
+      final fullPath = getBasePath(relativePath);
+      final file = File(fullPath);
+
+      if (await file.exists() && await file.length() > 0) {
+        return relativePath;
+      }
+
+      await Directory(p.dirname(fullPath)).create(recursive: true);
+      final bytes = await _downloadBytes(url);
+      if (bytes.isEmpty) return null;
+      await file.writeAsBytes(bytes, flush: true);
+      AnxLog.info('CatalogOpen: cached cover for ${catalogBook.id}');
+      return relativePath;
+    } catch (e) {
+      AnxLog.warning('CatalogOpen: cover cache failed: $e');
+      return null;
+    }
+  }
+
+  String _coverExtensionFromUrl(String url) {
+    try {
+      final path = Uri.parse(url).path.toLowerCase();
+      final ext = p.extension(path);
+      if (ext == '.png' ||
+          ext == '.jpg' ||
+          ext == '.jpeg' ||
+          ext == '.webp' ||
+          ext == '.gif') {
+        return ext.replaceFirst('.', '');
+      }
+    } catch (_) {}
+    return 'jpg';
   }
 
   Future<void> _deleteTempFile(File? file) async {
