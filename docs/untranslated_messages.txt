@@ -1,5 +1,11 @@
 {
   "ar": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -35,6 +41,12 @@
   ],
 
   "de": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -70,6 +82,12 @@
   ],
 
   "es": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -105,6 +123,12 @@
   ],
 
   "fr": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -140,6 +164,12 @@
   ],
 
   "it": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -175,6 +205,12 @@
   ],
 
   "ja": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -210,6 +246,12 @@
   ],
 
   "ko": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -245,6 +287,12 @@
   ],
 
   "pt": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -280,6 +328,12 @@
   ],
 
   "ro": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -315,6 +369,12 @@
   ],
 
   "ru": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -350,6 +410,12 @@
   ],
 
   "tr": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -385,6 +451,12 @@
   ],
 
   "zh": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -406,6 +478,12 @@
   ],
 
   "zh_CN": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "authLoginTitle",
     "authLoginSubtitle",
     "authEmail",
@@ -421,6 +499,12 @@
   ],
 
   "zh_LZH": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",
@@ -456,6 +540,12 @@
   ],
 
   "zh_TW": [
+    "navBarPurchasedBooks",
+    "navBarLibrary",
+    "catalogSearchHint",
+    "catalogNoBooks",
+    "catalogNoPurchasedBooks",
+    "catalogNoLibraryBooks",
     "settingsAiProviderReasoningEffort",
     "settingsAiProviderReasoningEffortHelp",
     "settingsAiProviderReasoningEffortAuto",

@@ -7,7 +7,9 @@ import 'package:anx_reader/l10n/generated/L10n.dart';
 import 'package:anx_reader/page/home_page/ai_page.dart';
 import 'package:anx_reader/service/initialization_check.dart';
 import 'package:anx_reader/page/home_page/bookshelf_page.dart';
+import 'package:anx_reader/page/home_page/library_page.dart';
 import 'package:anx_reader/page/home_page/notes_page.dart';
+import 'package:anx_reader/page/home_page/purchased_books_page.dart';
 import 'package:anx_reader/page/home_page/settings_page.dart';
 import 'package:anx_reader/page/home_page/statistics_page.dart';
 import 'package:anx_reader/service/receive_file/receive_share.dart';
@@ -44,7 +46,7 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  String _currentTab = 'bookshelf';
+  String _currentTab = 'purchased';
 
   bool? _expanded;
 
@@ -132,6 +134,16 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> navBarItems = [
       {
+        'icon': Icons.shopping_bag_outlined,
+        'label': L10n.of(context).navBarPurchasedBooks,
+        'identifier': 'purchased'
+      },
+      {
+        'icon': Icons.local_library_outlined,
+        'label': L10n.of(context).navBarLibrary,
+        'identifier': 'library'
+      },
+      {
         'icon': EvaIcons.book_open,
         'label': L10n.of(context).navBarBookshelf,
         'identifier': 'bookshelf'
@@ -165,7 +177,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         .indexWhere((element) => element['identifier'] == _currentTab);
     if (currentIndex == -1) {
       currentIndex = 0;
-      _currentTab = 'bookshelf';
+      _currentTab = 'purchased';
     }
 
     Widget pages(
@@ -174,6 +186,8 @@ class _HomePageState extends ConsumerState<HomePage> {
       ScrollController? controller,
     ) {
       final page = [
+        PurchasedBooksPage(controller: controller),
+        LibraryPage(controller: controller),
         BookshelfPage(controller: controller),
         if (Prefs().bottomNavigatorShowStatistics)
           StatisticPage(controller: controller),
