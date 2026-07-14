@@ -67,7 +67,7 @@ Future<void> main() async {
     builder: () => TtsHandler(),
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'com.anx.reader.tts.channel.audio',
-      androidNotificationChannelName: 'ANX Reader TTS',
+      androidNotificationChannelName: 'Graph-e TTS',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,
     ),
@@ -201,7 +201,7 @@ class _MyAppState extends ConsumerState<MyApp>
             localeListResolutionCallback: _resolveLocale,
             localizationsDelegates: L10n.localizationsDelegates,
             supportedLocales: L10n.supportedLocales,
-            title: 'Anx Reader',
+            title: 'Graph-e',
             themeMode: prefsNotifier.themeMode,
             theme: colorSchema(prefsNotifier, context, Brightness.light),
             darkTheme: colorSchema(prefsNotifier, context, Brightness.dark),

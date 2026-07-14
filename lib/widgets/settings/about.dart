@@ -114,13 +114,10 @@ Future<void> openAboutDialog() async {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
                   child: Center(
-                    child: Text(
-                      'Anx',
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: 64,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -150,7 +147,7 @@ Future<void> openAboutDialog() async {
                   onTap: () {
                     showLicensePage(
                       context: context,
-                      applicationName: 'Anx',
+                      applicationName: 'Graph-e',
                       applicationVersion: version,
                     );
                   },

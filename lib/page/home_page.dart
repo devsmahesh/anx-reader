@@ -238,8 +238,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             child: Image.asset(
                               width: 32,
                               height: 32,
-                              'assets/icon/Anx-logo-tined.png',
-                              color: Theme.of(context).colorScheme.secondary,
+                              'assets/images/favicon.png',
                             ),
                           ),
                         ),

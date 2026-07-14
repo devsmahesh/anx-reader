@@ -62,17 +62,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      'Anx',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 72,
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.primary,
-                        height: 1,
+                    Center(
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        height: 72,
+                        fit: BoxFit.contain,
+                        alignment: Alignment.center,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 20),
                     Text(
                       L10n.of(context).authLoginTitle,
                       textAlign: TextAlign.center,

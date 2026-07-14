@@ -88,7 +88,7 @@ class AzureTtsProvider extends TtsServiceProvider {
         'Ocp-Apim-Subscription-Key': key,
         'Content-Type': 'application/ssml+xml',
         'X-Microsoft-OutputFormat': 'audio-24khz-48kbitrate-mono-mp3',
-        'User-Agent': 'AnxReader',
+        'User-Agent': 'Graph-e',
       },
       body: _createSsml(text, resolvedVoice, rate, pitch),
     );
@@ -103,7 +103,7 @@ class AzureTtsProvider extends TtsServiceProvider {
 
   String _createSsml(String text, String voice, double rate, double pitch) {
     // Azure rate: relative value, e.g. +0.00%
-    // AnxReader rate: likely 0.5 to 2.0 range.
+    // Graph-e rate: likely 0.5 to 2.0 range.
     // Need to convert rate/pitch to SSML format if needed.
     // Simple implementation for now.
 
@@ -115,7 +115,7 @@ class AzureTtsProvider extends TtsServiceProvider {
     String rateStr = ratePercent >= 0 ? "+$ratePercent%" : "$ratePercent%";
 
     // Convert pitch (0.5 ~ 2.0 typically)
-    // Similar logic? Let's assume AnxReader passes standard 1.0 float base.
+    // Similar logic? Let's assume Graph-e passes standard 1.0 float base.
     // If pitch comes from Prefs().ttsPitch which is double.
     int pitchPercent = ((pitch - 1.0) * 100).toInt();
     String pitchStr = pitchPercent >= 0 ? "+$pitchPercent%" : "$pitchPercent%";

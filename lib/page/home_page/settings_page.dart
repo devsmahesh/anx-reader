@@ -72,13 +72,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     fit: BoxFit.scaleDown,
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 500),
-                      child: Text(
-                        'Anx',
-                        style: TextStyle(
-                          fontSize: 130,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        height: 120,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
