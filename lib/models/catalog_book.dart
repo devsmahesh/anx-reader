@@ -12,6 +12,9 @@ class CatalogBook {
     this.currency,
     this.isReview = false,
     this.entryId,
+    this.bookFileUrl,
+    this.encryptionKey,
+    this.encryptionIv,
   });
 
   factory CatalogBook.fromPurchasedJson(Map<String, dynamic> json) {
@@ -29,6 +32,10 @@ class CatalogBook {
       price: _asDouble(book['price']),
       currency: book['currency']?.toString(),
       isReview: json['isReview'] == true,
+      bookFileUrl: book['bookFileUrl']?.toString(),
+      // API stores user-wrapped key/iv as `key` / `iv`
+      encryptionKey: json['key']?.toString(),
+      encryptionIv: json['iv']?.toString(),
     );
   }
 
@@ -44,9 +51,24 @@ class CatalogBook {
   final double? price;
   final String? currency;
   final bool isReview;
+  final String? bookFileUrl;
+
+  /// Hex: IV(16) || AES-CBC(book encryption key), wrapped with user key.
+  final String? encryptionKey;
+
+  /// Hex: IV(16) || AES-CBC(book IV), wrapped with user key.
+  final String? encryptionIv;
 
   String get authorLabel =>
       authors.isEmpty ? 'Unknown author' : authors.join(', ');
+
+  bool get canDecrypt =>
+      bookFileUrl != null &&
+      bookFileUrl!.isNotEmpty &&
+      encryptionKey != null &&
+      encryptionKey!.isNotEmpty &&
+      encryptionIv != null &&
+      encryptionIv!.isNotEmpty;
 
   static Map<String, dynamic> _asMap(dynamic value) {
     if (value is Map<String, dynamic>) return value;

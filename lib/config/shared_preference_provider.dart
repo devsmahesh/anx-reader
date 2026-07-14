@@ -320,15 +320,30 @@ class Prefs extends ChangeNotifier {
 
   String? get authEmail => prefs.getString('authEmail');
 
+  String? get authUserId => prefs.getString('authUserId');
+
+  set authUserId(String? id) {
+    if (id == null || id.isEmpty) {
+      prefs.remove('authUserId');
+    } else {
+      prefs.setString('authUserId', id);
+    }
+    notifyListeners();
+  }
+
   void saveAuthTokens({
     required String accessToken,
     required String refreshToken,
     String? email,
+    String? userId,
   }) {
     prefs.setString('accessToken', accessToken);
     prefs.setString('refreshToken', refreshToken);
     if (email != null) {
       prefs.setString('authEmail', email);
+    }
+    if (userId != null && userId.isNotEmpty) {
+      prefs.setString('authUserId', userId);
     }
     notifyListeners();
   }
@@ -337,6 +352,7 @@ class Prefs extends ChangeNotifier {
     prefs.remove('accessToken');
     prefs.remove('refreshToken');
     prefs.remove('authEmail');
+    prefs.remove('authUserId');
     notifyListeners();
   }
 

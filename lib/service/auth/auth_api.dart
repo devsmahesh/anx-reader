@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:anx_reader/config/api_config.dart';
 import 'package:anx_reader/config/shared_preference_provider.dart';
 import 'package:dio/dio.dart';
@@ -64,6 +66,62 @@ class AuthApi {
       throw AuthException(_dioErrorMessage(e));
     } catch (e) {
       throw AuthException(e.toString());
+    }
+  }
+
+  /// Prefer cached id; otherwise decode JWT or fetch `/users/current`.
+  Future<String?> resolveUserId() async {
+    final cached = Prefs().authUserId;
+    if (cached != null && cached.isNotEmpty) return cached;
+
+    final token = Prefs().accessToken;
+    if (token == null || token.isEmpty) return null;
+
+    final fromJwt = userIdFromAccessToken(token);
+    if (fromJwt != null && fromJwt.isNotEmpty) {
+      Prefs().authUserId = fromJwt;
+      return fromJwt;
+    }
+
+    try {
+      final response = await _dio.get(
+        '${ApiConfig.apiBaseUrl}/users/current',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          validateStatus: (status) => status != null && status < 500,
+        ),
+      );
+      if (response.statusCode == 200 && response.data is Map) {
+        final body = Map<String, dynamic>.from(response.data as Map);
+        final id = body['_id']?.toString() ??
+            (body['data'] is Map
+                ? (body['data'] as Map)['_id']?.toString()
+                : null);
+        if (id != null && id.isNotEmpty) {
+          Prefs().authUserId = id;
+          return id;
+        }
+      }
+    } on DioException {
+      // Fall through
+    }
+    return null;
+  }
+
+  /// Reads `id` from JWT payload without verifying the signature.
+  static String? userIdFromAccessToken(String token) {
+    try {
+      final parts = token.split('.');
+      if (parts.length < 2) return null;
+      final normalized = base64Url.normalize(parts[1]);
+      final payload =
+          jsonDecode(utf8.decode(base64Url.decode(normalized))) as Map;
+      return payload['id']?.toString();
+    } catch (_) {
+      return null;
     }
   }
 

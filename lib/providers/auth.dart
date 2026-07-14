@@ -16,10 +16,12 @@ class AuthNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
     try {
       final tokens = await _api.login(email: email, password: password);
+      final userId = AuthApi.userIdFromAccessToken(tokens.accessToken);
       Prefs().saveAuthTokens(
         accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
         email: email.trim(),
+        userId: userId,
       );
       state = const AsyncValue.data(null);
       return true;

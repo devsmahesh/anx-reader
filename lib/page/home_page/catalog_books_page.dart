@@ -2,9 +2,13 @@ import 'package:anx_reader/config/shared_preference_provider.dart';
 import 'package:anx_reader/l10n/generated/L10n.dart';
 import 'package:anx_reader/models/catalog_book.dart';
 import 'package:anx_reader/providers/catalog_books.dart';
+import 'package:anx_reader/service/books/catalog_book_opener.dart';
+import 'package:anx_reader/utils/toast/common.dart';
 import 'package:anx_reader/widgets/common/container/filled_container.dart';
+import 'package:anx_reader/widgets/show_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class CatalogBooksPage extends ConsumerStatefulWidget {
   const CatalogBooksPage({
@@ -29,6 +33,7 @@ class _CatalogBooksPageState extends ConsumerState<CatalogBooksPage> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   bool _ownsScrollController = false;
+  bool _opening = false;
 
   @override
   void initState() {
@@ -64,6 +69,22 @@ class _CatalogBooksPageState extends ConsumerState<CatalogBooksPage> {
     _searchController.clear();
     ref.read(widget.provider.notifier).search('');
     setState(() {});
+  }
+
+  Future<void> _openBook(CatalogBook book) async {
+    if (_opening) return;
+    _opening = true;
+    showLoading();
+    try {
+      await CatalogBookOpener().open(ref, context, book);
+    } on CatalogBookOpenException catch (e) {
+      AnxToast.show(e.message);
+    } catch (e) {
+      AnxToast.show('Unable to open this book. Please try again.');
+    } finally {
+      SmartDialog.dismiss();
+      _opening = false;
+    }
   }
 
   @override
@@ -160,7 +181,10 @@ class _CatalogBooksPageState extends ConsumerState<CatalogBooksPage> {
                   ),
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      return _CatalogBookTile(book: data.books[index]);
+                      return _CatalogBookTile(
+                        book: data.books[index],
+                        onTap: () => _openBook(data.books[index]),
+                      );
                     },
                     childCount: data.books.length,
                   ),
@@ -203,54 +227,62 @@ class _CatalogBooksPageState extends ConsumerState<CatalogBooksPage> {
 }
 
 class _CatalogBookTile extends StatelessWidget {
-  const _CatalogBookTile({required this.book});
+  const _CatalogBookTile({
+    required this.book,
+    required this.onTap,
+  });
 
   final CatalogBook book;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: ColoredBox(
-              color: colorScheme.surfaceContainerHighest,
-              child: book.coverImageUrl != null &&
-                      book.coverImageUrl!.isNotEmpty
-                  ? Image.network(
-                      book.coverImageUrl!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      errorBuilder: (_, __, ___) =>
-                          _PlaceholderCover(title: book.title),
-                    )
-                  : _PlaceholderCover(title: book.title),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: ColoredBox(
+                color: colorScheme.surfaceContainerHighest,
+                child: book.coverImageUrl != null &&
+                        book.coverImageUrl!.isNotEmpty
+                    ? Image.network(
+                        book.coverImageUrl!,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (_, __, ___) =>
+                            _PlaceholderCover(title: book.title),
+                      )
+                    : _PlaceholderCover(title: book.title),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          book.title,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          book.authorLabel,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Text(
+            book.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            book.authorLabel,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+          ),
+        ],
+      ),
     );
   }
 }
