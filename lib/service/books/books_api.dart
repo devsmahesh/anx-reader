@@ -1,6 +1,8 @@
 import 'package:anx_reader/config/api_config.dart';
 import 'package:anx_reader/config/shared_preference_provider.dart';
 import 'package:anx_reader/models/catalog_book.dart';
+import 'package:anx_reader/service/auth/auth_api.dart';
+import 'package:anx_reader/utils/log/common.dart';
 import 'package:dio/dio.dart';
 
 class BooksApiException implements Exception {
@@ -13,9 +15,12 @@ class BooksApiException implements Exception {
 }
 
 class BooksApi {
-  BooksApi({Dio? dio}) : _dio = dio ?? Dio();
+  BooksApi({Dio? dio, AuthApi? authApi})
+      : _dio = dio ?? Dio(),
+        _authApi = authApi ?? AuthApi();
 
   final Dio _dio;
+  final AuthApi _authApi;
 
   Future<CatalogBookPage> getPurchasedBooks({
     int page = 1,
@@ -51,10 +56,12 @@ class BooksApi {
     required int limit,
     required String search,
     Map<String, dynamic>? extraQuery,
+    bool didRefresh = false,
   }) async {
     final token = Prefs().accessToken;
     if (token == null || token.isEmpty) {
-      throw BooksApiException('Not signed in');
+      // Not signed in — same UX as External Lib empty shelf.
+      return _emptyPage(page: page, limit: limit);
     }
 
     try {
@@ -74,6 +81,34 @@ class BooksApi {
           validateStatus: (status) => status != null && status < 500,
         ),
       );
+
+      AnxLog.info(
+        'BooksApi $path -> ${response.statusCode} '
+        '(dataType=${response.data.runtimeType})',
+      );
+
+      // Expired / invalid session: refresh once, then treat as empty catalog.
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        if (!didRefresh) {
+          final refreshed = await _authApi.refreshSession();
+          if (refreshed) {
+            return _fetchCatalog(
+              path: path,
+              page: page,
+              limit: limit,
+              search: search,
+              extraQuery: extraQuery,
+              didRefresh: true,
+            );
+          }
+        }
+        return _emptyPage(page: page, limit: limit);
+      }
+
+      // 404 / not-found payloads → empty catalog (External Lib style).
+      if (response.statusCode == 404 || _isNotFoundPayload(response.data)) {
+        return _emptyPage(page: page, limit: limit);
+      }
 
       if (response.statusCode == 200 && response.data is Map) {
         final body = Map<String, dynamic>.from(response.data as Map);
@@ -104,9 +139,13 @@ class BooksApi {
         );
       }
 
-      throw BooksApiException(
-        _extractMessage(response.data) ?? 'Failed to load books',
-      );
+      // Unknown soft failure without a useful message → show empty, not Retry.
+      final message = _extractMessage(response.data);
+      if (message == null || _isNotFoundMessage(message)) {
+        return _emptyPage(page: page, limit: limit);
+      }
+
+      throw BooksApiException(message);
     } on BooksApiException {
       rethrow;
     } on DioException catch (e) {
@@ -116,6 +155,16 @@ class BooksApi {
     }
   }
 
+  CatalogBookPage _emptyPage({required int page, required int limit}) {
+    return CatalogBookPage(
+      books: const [],
+      currentPage: page,
+      totalPages: 0,
+      totalRecords: 0,
+      limit: limit,
+    );
+  }
+
   int? _asInt(dynamic value) {
     if (value is int) return value;
     if (value is num) return value.toInt();
@@ -123,10 +172,24 @@ class BooksApi {
   }
 
   String? _extractMessage(dynamic data) {
-    if (data is Map && data['message'] != null) {
-      return data['message'].toString();
+    if (data is Map) {
+      if (data['message'] != null) return data['message'].toString();
+      if (data['error'] != null) return data['error'].toString();
     }
     return null;
+  }
+
+  bool _isNotFoundMessage(String message) {
+    final lower = message.toLowerCase();
+    return lower.contains('not found') ||
+        lower.contains('no books') ||
+        lower.contains('no purchased') ||
+        lower.contains('no library');
+  }
+
+  bool _isNotFoundPayload(dynamic data) {
+    final message = _extractMessage(data);
+    return message != null && _isNotFoundMessage(message);
   }
 
   String _dioErrorMessage(DioException e) {

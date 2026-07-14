@@ -6,6 +6,7 @@ import 'package:anx_reader/service/books/catalog_book_opener.dart';
 import 'package:anx_reader/utils/toast/common.dart';
 import 'package:anx_reader/widgets/common/container/filled_container.dart';
 import 'package:anx_reader/widgets/show_loading.dart';
+import 'package:anx_reader/widgets/tips/bookshelf_tips.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -146,20 +147,29 @@ class _CatalogBooksPageState extends ConsumerState<CatalogBooksPage> {
       ],
     );
 
+    final emptyTitle =
+        widget.emptyMessage ?? L10n.of(context).catalogNoBooks;
+
     final Widget body = asyncState.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, _) => _ErrorView(
-        message: error.toString(),
-        onRetry: () => ref.read(widget.provider.notifier).refresh(),
-      ),
+      error: (error, _) {
+        // 404 / "not found" should look like External Lib empty state.
+        if (_isCatalogNotFoundError(error)) {
+          return BookshelfTips(
+            title: emptyTitle,
+            showSubtitle: false,
+          );
+        }
+        return _ErrorView(
+          message: error.toString(),
+          onRetry: () => ref.read(widget.provider.notifier).refresh(),
+        );
+      },
       data: (data) {
         if (data.books.isEmpty) {
-          return Center(
-            child: Text(
-              widget.emptyMessage ?? L10n.of(context).catalogNoBooks,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+          return BookshelfTips(
+            title: emptyTitle,
+            showSubtitle: false,
           );
         }
 
@@ -345,4 +355,16 @@ class _ErrorView extends StatelessWidget {
       ),
     );
   }
+}
+
+bool _isCatalogNotFoundError(Object error) {
+  final message = error.toString().toLowerCase();
+  return message.contains('404') ||
+      message.contains('not found') ||
+      message.contains('no books') ||
+      message.contains('no purchased') ||
+      message.contains('no library') ||
+      message.contains('failed to load books') ||
+      message.contains('unauthorized') ||
+      message.contains('authentication');
 }

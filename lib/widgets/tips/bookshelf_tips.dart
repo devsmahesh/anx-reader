@@ -2,7 +2,21 @@ import 'package:anx_reader/l10n/generated/L10n.dart';
 import 'package:flutter/material.dart';
 
 class BookshelfTips extends StatelessWidget {
-  const BookshelfTips({super.key});
+  const BookshelfTips({
+    super.key,
+    this.title,
+    this.subtitle,
+    this.showSubtitle = true,
+  });
+
+  /// Overrides the primary empty-state message (defaults to bookshelf tip).
+  final String? title;
+
+  /// Overrides the secondary tip line.
+  final String? subtitle;
+
+  /// When false, only the title is shown (used by Purchased/Library catalogs).
+  final bool showSubtitle;
 
   final TextStyle textStyleBig = const TextStyle(
     fontSize: 20,
@@ -14,6 +28,7 @@ class BookshelfTips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -25,14 +40,18 @@ class BookshelfTips extends StatelessWidget {
                   color: Colors.grey)),
           const SizedBox(height: 50),
           Text(
-            L10n.of(context).bookshelfTips_1,
+            title ?? l10n.bookshelfTips_1,
+            textAlign: TextAlign.center,
             style: textStyleBig,
           ),
-          const SizedBox(height: 10),
-          Text(
-            L10n.of(context).bookshelfTips_2,
-            style: textStyle,
-          ),
+          if (showSubtitle) ...[
+            const SizedBox(height: 10),
+            Text(
+              subtitle ?? l10n.bookshelfTips_2,
+              textAlign: TextAlign.center,
+              style: textStyle,
+            ),
+          ],
         ],
       ),
     );

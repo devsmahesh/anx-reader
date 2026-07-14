@@ -125,6 +125,42 @@ class AuthApi {
     }
   }
 
+  /// Uses the stored refresh token to mint a new access session.
+  /// Returns `true` when tokens were updated successfully.
+  Future<bool> refreshSession() async {
+    final refreshToken = Prefs().refreshToken;
+    if (refreshToken == null || refreshToken.isEmpty) return false;
+
+    try {
+      final response = await _dio.post(
+        '${ApiConfig.apiBaseUrl}/users/refresh-token',
+        data: {'refreshToken': refreshToken},
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+          validateStatus: (status) => status != null && status < 500,
+        ),
+      );
+
+      if (response.statusCode == 200 && response.data is Map) {
+        final tokens = AuthTokens.fromJson(
+          Map<String, dynamic>.from(response.data as Map),
+        );
+        Prefs().saveAuthTokens(
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken,
+          email: Prefs().authEmail,
+          userId: userIdFromAccessToken(tokens.accessToken) ?? Prefs().authUserId,
+        );
+        return true;
+      }
+      return false;
+    } on DioException {
+      return false;
+    } catch (_) {
+      return false;
+    }
+  }
+
   Future<void> logout() async {
     final token = Prefs().accessToken;
     if (token == null || token.isEmpty) return;
